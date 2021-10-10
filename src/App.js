@@ -19,7 +19,7 @@ class App extends React.Component {
     super(props);
     this.state = INITIAL_STATE;
 
-    this.isFormValid = this.isFormValid.bind(this);
+    this.isFormValid = this.validateForm.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
   }
@@ -35,15 +35,18 @@ class App extends React.Component {
 
     this.setState({
       [target.name]: value,
-      isSaveButtonDisabled: this.isFormValid(),
-    });
+    }, this.validateForm);
   }
 
   onSaveButtonClick(e) {
     e.preventDefault();
   }
 
-  isFormValid() {
+  validateForm() {
+    const attrMax = 90;
+    const attrMin = 0;
+    const attrSumMax = 210;
+
     const {
       cardName,
       cardDescription,
@@ -54,17 +57,28 @@ class App extends React.Component {
       cardRare,
     } = this.state;
 
-    if (cardName
-      && cardDescription
-      && cardAttr1
-      && cardAttr2
-      && cardAttr3
-      && cardImage
-      && cardRare) {
-      console.log('valid');
-      return false;
-    }
-    return true;
+    const fields = [cardName,
+      cardDescription,
+      cardImage];
+
+    const attrs = [cardAttr1,
+      cardAttr2,
+      cardAttr3];
+
+    const attrSum = attrs.reduce((acc, num) => acc + num);
+
+    const isFilled = fields.every((field) => field);
+
+    const isAttrsWithinRange = attrs
+      .every((attr) => attr <= attrMax && attr >= attrMin);
+
+    const isAttrsSumValid = attrSum <= attrSumMax;
+
+    const isFormValid = isFilled && isAttrsWithinRange && isAttrsSumValid;
+
+    this.setState({
+      isSaveButtonDisabled: !isFormValid,
+    });
   }
 
   render() {

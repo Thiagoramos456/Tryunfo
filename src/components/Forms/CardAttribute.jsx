@@ -10,7 +10,6 @@ const CardAttribute = ({ value, onInputChange, name, attr }) => (
       data-testid={ `$attr${name}-input` }
       value={ value }
       onInput={ onInputChange }
-      min="0"
       type="number"
       required
     />
