@@ -1,5 +1,6 @@
 import React from 'react';
-import Form from './components/Form';
+import Form from './components/Forms/Form';
+import Card from './components/Card';
 
 const INITIAL_STATE = {
   cardName: '',
@@ -40,7 +41,6 @@ class App extends React.Component {
 
   onSaveButtonClick(e) {
     e.preventDefault();
-    console.log('Salvo');
   }
 
   isFormValid() {
@@ -95,6 +95,16 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
           isSaveButtonDisabled={ isSaveButtonDisabled }
           onSaveButtonClick={ this.onSaveButtonClick }
+        />
+        <Card
+          cardName={ cardName }
+          cardDescription={ cardDescription }
+          cardAttr1={ cardAttr1 }
+          cardAttr2={ cardAttr2 }
+          cardAttr3={ cardAttr3 }
+          cardImage={ cardImage }
+          cardRare={ cardRare }
+          cardTrunfo={ cardTrunfo }
         />
       </div>
     );
