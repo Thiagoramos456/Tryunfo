@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const CardName = ({ value, handleChange }) => (
-  <label htmlFor="name">
+  <label htmlFor="cardName">
     Nome
     <input
-      id="name"
-      name="name"
-      placeholder="Digite o nome da carta"
+      id="cardName"
+      name="cardName"
       data-testid="name-input"
       value={ value }
       onChange={ handleChange }

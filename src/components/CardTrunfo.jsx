@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const CardTrunfo = ({ value, handleChange }) => (
-  <label htmlFor="trunfo">
+  <label htmlFor="cardTrunfo">
     Super Trunfo
     <input
-      id="trunfo"
-      name="trunfo"
+      id="cardTrunfo"
+      name="cardTrunfo"
       data-testid="trunfo-input"
       checked={ value }
       onChange={ handleChange }

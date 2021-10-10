@@ -8,30 +8,60 @@ import CardRarity from './CardRarity';
 import CardTrunfo from './CardTrunfo';
 import SubmitCard from './SubmitCard';
 
+const INITIAL_STATE = {
+  cardName: '',
+  cardDescription: '',
+  cardAttr1: 0,
+  cardAttr2: 0,
+  cardAttr3: 0,
+  cardImage: '',
+  cardRare: 'Normal',
+  cardTrunfo: false,
+};
+
 class Form extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = INITIAL_STATE;
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleFileInput = this.handleFileInput.bind(this);
+  }
+
+  handleChange({ target }) {
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    console.log(target.name);
+    this.setState({
+      [target.name]: value,
+    });
+  }
+
+  handleFileInput({ target }) {
+    this.setState({
+      [target.name]: URL.createObjectURL(target.files[0]),
+    });
+  }
+
   render() {
-    const { handleChange, handleFileInput, state } = this.props;
+    const {
+      cardName,
+      cardDescription,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    } = this.state;
     return (
       <form>
-        <CardName value={ state.name } handleChange={ handleChange } />
-        <CardDescription
-          value={ state.description }
-          handleChange={ handleChange }
-        />
-        <CardAttributes handleChange={ handleChange } state={ state } />
+        <CardName value={ cardName } handleChange={ this.handleChange } />
+        <CardDescription value={ cardDescription } handleChange={ this.handleChange } />
+        <CardAttributes handleChange={ this.handleChange } state={ this.state } />
         <ImageInput
-          handleChange={ handleChange }
-          handleFileInput={ handleFileInput }
-          value={ state.image }
+          handleChange={ this.handleChange }
+          handleFileInput={ this.handleFileInput }
+          value={ cardImage }
         />
-        <CardRarity
-          value={ state.rarity }
-          handleChange={ handleChange }
-        />
-        <CardTrunfo
-          value={ state.trunfo }
-          handleChange={ handleChange }
-        />
+        <CardRarity value={ cardRare } handleChange={ this.handleChange } />
+        <CardTrunfo value={ cardTrunfo } handleChange={ this.handleChange } />
         <SubmitCard />
       </form>
     );
@@ -39,13 +69,11 @@ class Form extends React.Component {
 }
 
 Form.propTypes = {
-  state: PropTypes.shape({
-    name: PropTypes.string,
-    description: PropTypes.string,
-    image: PropTypes.string,
-    rarity: PropTypes.string,
-    trunfo: PropTypes.bool,
-  }).isRequired,
+  name: PropTypes.string,
+  description: PropTypes.string,
+  image: PropTypes.string,
+  rarity: PropTypes.string,
+  trunfo: PropTypes.bool,
   handleChange: PropTypes.func.isRequired,
   handleFileInput: PropTypes.func.isRequired,
 };

@@ -8,19 +8,19 @@ function CardAttributes({ handleChange, state }) {
       <CardAttribute
         value={ state.attr01Input }
         handleChange={ handleChange }
-        name="attr1-input"
+        name="cardAttr1"
         attr="01"
       />
       <CardAttribute
         value={ state.attr02Input }
         handleChange={ handleChange }
-        name="attr2-input"
+        name="cardAttr2"
         attr="02"
       />
       <CardAttribute
         value={ state.attr03Input }
         handleChange={ handleChange }
-        name="attr3-input"
+        name="cardAttr3"
         attr="03"
       />
     </div>

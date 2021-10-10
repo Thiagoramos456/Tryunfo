@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const CardRarity = ({ value, handleChange }) => (
-  <label htmlFor="rarity">
-    Descrição
+  <label htmlFor="cardRare">
+    Raridade
     <select
-      id="rarity"
-      name="rarity"
+      id="cardRare"
+      name="cardRare"
       data-testid="rare-input"
       value={ value }
       onInput={ handleChange }
