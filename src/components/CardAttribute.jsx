@@ -1,26 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CardAttribute = ({ value, handleChange, name, attr }) => (
+const CardAttribute = ({ value, onInputChange, name, attr }) => (
   <label htmlFor={ name }>
     {`Attr ${attr}`}
     <input
       id={ name }
-      name={ `attr${attr}Input` }
-      data-testid={ `${name}input` }
+      name={ `cardAttr${attr}` }
+      data-testid={ `$attr${name}-input` }
       value={ value }
-      onChange={ handleChange }
+      onInput={ onInputChange }
       min="0"
       type="number"
+      required
     />
   </label>
 );
 
 CardAttribute.propTypes = {
   value: PropTypes.number.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  onInputChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
-  attr: PropTypes.string.isRequired,
+  attr: PropTypes.number.isRequired,
 };
 
 export default CardAttribute;

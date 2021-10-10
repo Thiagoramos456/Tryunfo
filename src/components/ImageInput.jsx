@@ -1,25 +1,34 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-const ImageInput = ({ handleFileInput }) => {
-  const fileInput = useRef(null);
+class ImageInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.fileInput = React.createRef();
+  }
 
-  return (
-    <label htmlFor="image">
-      Imagem
-      <input
-        id="image"
-        name="image"
-        data-testid="image-input"
-        type="file"
-        onInput={ (e) => { handleFileInput(e, fileInput); } }
-      />
-    </label>
-  );
-};
+  render() {
+    const { value, onInputChange } = this.props;
+    return (
+      <label htmlFor="cardImage">
+        Imagem
+        <input
+          id="cardImage"
+          name="cardImage"
+          data-testid="image-input"
+          value={ value }
+          onChange={ onInputChange }
+          required
+        />
+      </label>
+
+    );
+  }
+}
 
 ImageInput.propTypes = {
-  handleFileInput: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  onInputChange: PropTypes.func.isRequired,
 };
 
 export default ImageInput;

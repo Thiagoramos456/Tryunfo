@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CardTrunfo = ({ value, handleChange }) => (
+const CardTrunfo = ({ value, onInputChange }) => (
   <label htmlFor="cardTrunfo">
     Super Trunfo
     <input
@@ -9,15 +9,15 @@ const CardTrunfo = ({ value, handleChange }) => (
       name="cardTrunfo"
       data-testid="trunfo-input"
       checked={ value }
-      onChange={ handleChange }
+      onChange={ onInputChange }
       type="checkbox"
     />
   </label>
 );
 
 CardTrunfo.propTypes = {
-  value: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  value: PropTypes.bool.isRequired,
+  onInputChange: PropTypes.func.isRequired,
 };
 
 export default CardTrunfo;

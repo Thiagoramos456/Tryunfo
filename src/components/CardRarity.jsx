@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CardRarity = ({ value, handleChange }) => (
+const CardRarity = ({ value, onInputChange }) => (
   <label htmlFor="cardRare">
     Raridade
     <select
@@ -9,7 +9,8 @@ const CardRarity = ({ value, handleChange }) => (
       name="cardRare"
       data-testid="rare-input"
       value={ value }
-      onInput={ handleChange }
+      onInput={ onInputChange }
+      required
     >
       <option select="normal">normal</option>
       <option select="raro">raro</option>
@@ -20,7 +21,7 @@ const CardRarity = ({ value, handleChange }) => (
 
 CardRarity.propTypes = {
   value: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  onInputChange: PropTypes.func.isRequired,
 };
 
 export default CardRarity;

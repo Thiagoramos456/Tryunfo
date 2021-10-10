@@ -2,38 +2,36 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CardAttribute from './CardAttribute';
 
-function CardAttributes({ handleChange, state }) {
+function CardAttributes({ onInputChange, cardAttr1, cardAttr2, cardAttr3 }) {
   return (
     <div>
       <CardAttribute
-        value={ state.attr01Input }
-        handleChange={ handleChange }
+        value={ cardAttr1 }
+        onInputChange={ onInputChange }
         name="cardAttr1"
-        attr="01"
+        attr={ 1 }
       />
       <CardAttribute
-        value={ state.attr02Input }
-        handleChange={ handleChange }
+        value={ cardAttr2 }
+        onInputChange={ onInputChange }
         name="cardAttr2"
-        attr="02"
+        attr={ 2 }
       />
       <CardAttribute
-        value={ state.attr03Input }
-        handleChange={ handleChange }
+        value={ cardAttr3 }
+        onInputChange={ onInputChange }
         name="cardAttr3"
-        attr="03"
+        attr={ 3 }
       />
     </div>
   );
 }
 
 CardAttributes.propTypes = {
-  handleChange: PropTypes.func.isRequired,
-  state: PropTypes.shape({
-    attr01Input: PropTypes.number,
-    attr02Input: PropTypes.number,
-    attr03Input: PropTypes.number,
-  }).isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  cardAttr1: PropTypes.number.isRequired,
+  cardAttr2: PropTypes.number.isRequired,
+  cardAttr3: PropTypes.number.isRequired,
 };
 
 export default CardAttributes;

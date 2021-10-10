@@ -1,8 +1,12 @@
 import React from 'react';
 
-function SubmitCard() {
+function SubmitCard({ isSaveButtonDisabled }) {
   return (
-    <button type="submit" data-testid="save-button">
+    <button
+      type="submit"
+      data-testid="save-button"
+      disabled={ isSaveButtonDisabled }
+    >
       Salvar Carta
     </button>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CardDescription = ({ value, handleChange }) => (
+const CardDescription = ({ value, onInputChange }) => (
   <label htmlFor="cardDescription">
     Descrição
     <textarea
@@ -9,14 +9,15 @@ const CardDescription = ({ value, handleChange }) => (
       name="cardDescription"
       data-testid="description-input"
       value={ value }
-      onChange={ handleChange }
+      onChange={ onInputChange }
+      required
     />
   </label>
 );
 
 CardDescription.propTypes = {
   value: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  onInputChange: PropTypes.func.isRequired,
 };
 
 export default CardDescription;

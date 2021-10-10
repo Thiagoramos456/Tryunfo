@@ -8,74 +8,57 @@ import CardRarity from './CardRarity';
 import CardTrunfo from './CardTrunfo';
 import SubmitCard from './SubmitCard';
 
-const INITIAL_STATE = {
-  cardName: '',
-  cardDescription: '',
-  cardAttr1: 0,
-  cardAttr2: 0,
-  cardAttr3: 0,
-  cardImage: '',
-  cardRare: 'Normal',
-  cardTrunfo: false,
-};
-
 class Form extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = INITIAL_STATE;
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleFileInput = this.handleFileInput.bind(this);
-  }
-
-  handleChange({ target }) {
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    console.log(target.name);
-    this.setState({
-      [target.name]: value,
-    });
-  }
-
-  handleFileInput({ target }) {
-    this.setState({
-      [target.name]: URL.createObjectURL(target.files[0]),
-    });
-  }
-
   render() {
     const {
       cardName,
       cardDescription,
       cardImage,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
       cardRare,
       cardTrunfo,
-    } = this.state;
+      onInputChange,
+      isSaveButtonDisabled,
+      onSaveButtonClick,
+    } = this.props;
     return (
-      <form>
-        <CardName value={ cardName } handleChange={ this.handleChange } />
-        <CardDescription value={ cardDescription } handleChange={ this.handleChange } />
-        <CardAttributes handleChange={ this.handleChange } state={ this.state } />
+      <form onSubmit={ onSaveButtonClick }>
+        <CardName value={ cardName } onInputChange={ onInputChange } />
+        <CardDescription value={ cardDescription } onInputChange={ onInputChange } />
+        <CardAttributes
+          onInputChange={ onInputChange }
+          cardAttr1={ cardAttr1 }
+          cardAttr2={ cardAttr2 }
+          cardAttr3={ cardAttr3 }
+        />
         <ImageInput
-          handleChange={ this.handleChange }
-          handleFileInput={ this.handleFileInput }
+          onInputChange={ onInputChange }
           value={ cardImage }
         />
-        <CardRarity value={ cardRare } handleChange={ this.handleChange } />
-        <CardTrunfo value={ cardTrunfo } handleChange={ this.handleChange } />
-        <SubmitCard />
+        <CardRarity value={ cardRare } onInputChange={ onInputChange } />
+        <CardTrunfo value={ cardTrunfo } onInputChange={ onInputChange } />
+        <SubmitCard
+          isSaveButtonDisabled={ isSaveButtonDisabled }
+        />
       </form>
     );
   }
 }
 
 Form.propTypes = {
-  name: PropTypes.string,
-  description: PropTypes.string,
-  image: PropTypes.string,
-  rarity: PropTypes.string,
-  trunfo: PropTypes.bool,
-  handleChange: PropTypes.func.isRequired,
-  handleFileInput: PropTypes.func.isRequired,
+  cardName: PropTypes.string.isRequired,
+  cardDescription: PropTypes.string.isRequired,
+  cardImage: PropTypes.string.isRequired,
+  cardAttr1: PropTypes.number.isRequired,
+  cardAttr2: PropTypes.number.isRequired,
+  cardAttr3: PropTypes.number.isRequired,
+  cardRare: PropTypes.string.isRequired,
+  cardTrunfo: PropTypes.bool.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  isSaveButtonDisabled: PropTypes.bool.isRequired,
+  onSaveButtonClick: PropTypes.func.isRequired,
 };
 
 export default Form;

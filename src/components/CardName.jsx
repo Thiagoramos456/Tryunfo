@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CardName = ({ value, handleChange }) => (
+const CardName = ({ value, onInputChange }) => (
   <label htmlFor="cardName">
     Nome
     <input
@@ -9,14 +9,15 @@ const CardName = ({ value, handleChange }) => (
       name="cardName"
       data-testid="name-input"
       value={ value }
-      onChange={ handleChange }
+      onChange={ onInputChange }
+      required
     />
   </label>
 );
 
 CardName.propTypes = {
   value: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  onInputChange: PropTypes.func.isRequired,
 };
 
 export default CardName;
