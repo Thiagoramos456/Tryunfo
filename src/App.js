@@ -1,5 +1,5 @@
 import React from 'react';
-import Form from './components/Forms/Form';
+import Form from './components/Form';
 import Card from './components/Card';
 
 const INITIAL_STATE = {
@@ -12,19 +12,23 @@ const INITIAL_STATE = {
   cardRare: 'Normal',
   cardTrunfo: false,
   isSaveButtonDisabled: true,
+  hasTrunfo: false,
 };
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = INITIAL_STATE;
-
+    this.state = Object.assign(INITIAL_STATE, { cardList: [] });
     this.isFormValid = this.validateForm.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
+    this.saveCard = this.saveCard.bind(this);
+    this.resetForm = this.resetForm.bind(this);
+    this.validateTrunfo = this.validateTrunfo.bind(this);
+    this.removeCard = this.removeCard.bind(this);
   }
 
-  onInputChange({ target }, file) {
+  onInputChange({ target }) {
     let value = target.type === 'checkbox' ? target.checked : target.value;
 
     if (target.name.startsWith('cardAttr')) value = parseInt(value, 10);
@@ -40,6 +44,47 @@ class App extends React.Component {
 
   onSaveButtonClick(e) {
     e.preventDefault();
+    this.saveCard();
+  }
+
+  resetForm() {
+    const { cardList } = this.state;
+    const oldCardList = [...cardList];
+    const newState = INITIAL_STATE;
+
+    newState.cardList = oldCardList;
+    this.setState(newState, this.validateTrunfo);
+  }
+
+  saveCard() {
+    const card = {
+      ...this.state,
+    };
+    delete card.cardList;
+    delete card.isSaveButtonDisabled;
+    delete card.hasTrunfo;
+
+    this.setState((state) => ({
+      cardList: [...state.cardList, card],
+    }), this.resetForm);
+  }
+
+  removeCard({ target }) {
+    const { cardList } = this.state;
+    const cardName = target.name;
+    const updatedCardList = cardList.filter((card) => card.cardName !== cardName);
+    this.setState({
+      cardList: updatedCardList,
+    }, this.validateTrunfo);
+  }
+
+  validateTrunfo() {
+    const { cardList } = this.state;
+    const hasTrunfoCheck = cardList.some((card) => card.cardTrunfo);
+
+    this.setState({
+      hasTrunfo: hasTrunfoCheck,
+    });
   }
 
   validateForm() {
@@ -54,7 +99,6 @@ class App extends React.Component {
       cardAttr2,
       cardAttr3,
       cardImage,
-      cardRare,
     } = this.state;
 
     const fields = [cardName,
@@ -75,7 +119,6 @@ class App extends React.Component {
     const isAttrsSumValid = attrSum <= attrSumMax;
 
     const isFormValid = isFilled && isAttrsWithinRange && isAttrsSumValid;
-
     this.setState({
       isSaveButtonDisabled: !isFormValid,
     });
@@ -92,6 +135,8 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
       isSaveButtonDisabled,
+      cardList,
+      hasTrunfo,
     } = this.state;
     return (
       <div>
@@ -109,6 +154,7 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
           isSaveButtonDisabled={ isSaveButtonDisabled }
           onSaveButtonClick={ this.onSaveButtonClick }
+          hasTrunfo={ hasTrunfo }
         />
         <Card
           cardName={ cardName }
@@ -120,7 +166,31 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
+        { cardList.map((card) => (
+          <div key={ card.cardName }>
+            <Card
+              cardName={ card.cardName }
+              cardDescription={ card.cardDescription }
+              cardAttr1={ card.cardAttr1 }
+              cardAttr2={ card.cardAttr2 }
+              cardAttr3={ card.cardAttr3 }
+              cardImage={ card.cardImage }
+              cardRare={ card.cardRare }
+              cardTrunfo={ card.cardTrunfo }
+            />
+            <button
+              data-testid="delete-button"
+              onClick={ this.removeCard }
+              name={ card.cardName }
+              type="button"
+            >
+              Excluir
+
+            </button>
+          </div>
+        ))}
       </div>
+
     );
   }
 }
