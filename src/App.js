@@ -13,6 +13,7 @@ const INITIAL_STATE = {
   cardTrunfo: false,
   isSaveButtonDisabled: true,
   hasTrunfo: false,
+  searchName: '',
 };
 
 class App extends React.Component {
@@ -137,6 +138,7 @@ class App extends React.Component {
       isSaveButtonDisabled,
       cardList,
       hasTrunfo,
+      searchName,
     } = this.state;
     return (
       <div>
@@ -166,29 +168,42 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
-        { cardList.map((card) => (
-          <div key={ card.cardName }>
-            <Card
-              cardName={ card.cardName }
-              cardDescription={ card.cardDescription }
-              cardAttr1={ card.cardAttr1 }
-              cardAttr2={ card.cardAttr2 }
-              cardAttr3={ card.cardAttr3 }
-              cardImage={ card.cardImage }
-              cardRare={ card.cardRare }
-              cardTrunfo={ card.cardTrunfo }
-            />
-            <button
-              data-testid="delete-button"
-              onClick={ this.removeCard }
-              name={ card.cardName }
-              type="button"
-            >
-              Excluir
+        <div>
+          <h2>Todas as cartas</h2>
+          <h3>Filtros de Busca</h3>
+          <input
+            data-testid="name-filter"
+            placeholder="Nome da carta"
+            onInput={ this.onInputChange }
+            name="searchName"
+            value={ searchName }
+          />
+          { cardList.filter((card) => card.cardName.toLowerCase()
+            .includes(searchName.toLowerCase()))
+            .map((card) => (
+              <div key={ card.cardName }>
+                <Card
+                  cardName={ card.cardName }
+                  cardDescription={ card.cardDescription }
+                  cardAttr1={ card.cardAttr1 }
+                  cardAttr2={ card.cardAttr2 }
+                  cardAttr3={ card.cardAttr3 }
+                  cardImage={ card.cardImage }
+                  cardRare={ card.cardRare }
+                  cardTrunfo={ card.cardTrunfo }
+                />
+                <button
+                  data-testid="delete-button"
+                  onClick={ this.removeCard }
+                  name={ card.cardName }
+                  type="button"
+                >
+                  Excluir
 
-            </button>
-          </div>
-        ))}
+                </button>
+              </div>
+            ))}
+        </div>
       </div>
 
     );
