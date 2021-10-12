@@ -12,9 +12,9 @@ const CardRarity = ({ value, onInputChange }) => (
       onInput={ onInputChange }
       required
     >
-      <option select="normal">normal</option>
-      <option select="raro">raro</option>
-      <option select="muito-raro">muito raro</option>
+      <option value="normal">normal</option>
+      <option value="raro">raro</option>
+      <option value="muito raro">muito raro</option>
     </select>
   </label>
 );

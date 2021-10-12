@@ -2,6 +2,8 @@ import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
 
+const possibleRarity = ['', 'normal', 'raro', 'muito-raro'];
+
 const INITIAL_STATE = {
   cardName: '',
   cardDescription: '',
@@ -9,11 +11,12 @@ const INITIAL_STATE = {
   cardAttr2: 0,
   cardAttr3: 0,
   cardImage: '',
-  cardRare: 'Normal',
+  cardRare: 'normal',
   cardTrunfo: false,
   isSaveButtonDisabled: true,
   hasTrunfo: false,
   searchName: '',
+  rareFilter: '',
 };
 
 class App extends React.Component {
@@ -64,6 +67,7 @@ class App extends React.Component {
     delete card.cardList;
     delete card.isSaveButtonDisabled;
     delete card.hasTrunfo;
+    delete card.rareFilter;
 
     this.setState((state) => ({
       cardList: [...state.cardList, card],
@@ -139,6 +143,7 @@ class App extends React.Component {
       cardList,
       hasTrunfo,
       searchName,
+      rareFilter,
     } = this.state;
     return (
       <div>
@@ -178,8 +183,22 @@ class App extends React.Component {
             name="searchName"
             value={ searchName }
           />
-          { cardList.filter((card) => card.cardName.toLowerCase()
-            .includes(searchName.toLowerCase()))
+          <select
+            data-testid="rare-filter"
+            onInput={ this.onInputChange }
+            name="rareFilter"
+            value={ rareFilter }
+          >
+            <option value="todas" disabled hidden>Raridade</option>
+            <option value="todas">Todas</option>
+            <option value="normal">Normal</option>
+            <option value="raro">Raro</option>
+            <option value="muito raro">Muito Raro</option>
+          </select>
+          { cardList.filter((card) => card.cardName
+            .toLowerCase()
+            .includes(searchName.toLowerCase())
+            && (card.cardRare === rareFilter || rareFilter === ''))
             .map((card) => (
               <div key={ card.cardName }>
                 <Card
