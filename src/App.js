@@ -2,8 +2,6 @@ import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
 
-const possibleRarity = ['', 'normal', 'raro', 'muito-raro'];
-
 const INITIAL_STATE = {
   cardName: '',
   cardDescription: '',
@@ -16,7 +14,8 @@ const INITIAL_STATE = {
   isSaveButtonDisabled: true,
   hasTrunfo: false,
   searchName: '',
-  rareFilter: '',
+  rareFilter: 'todas',
+  trunfoFilter: false,
 };
 
 class App extends React.Component {
@@ -144,6 +143,7 @@ class App extends React.Component {
       hasTrunfo,
       searchName,
       rareFilter,
+      trunfoFilter,
     } = this.state;
     return (
       <div>
@@ -195,10 +195,22 @@ class App extends React.Component {
             <option value="raro">Raro</option>
             <option value="muito raro">Muito Raro</option>
           </select>
+          <label htmlFor="trunfoFilter">
+            <input
+              id="trunfoFilter"
+              data-testid="trunfo-filter"
+              name="trunfoFilter"
+              checked={ trunfoFilter }
+              type="checkbox"
+              onChange={ this.onInputChange }
+            />
+            Super Trunfo
+          </label>
           { cardList.filter((card) => card.cardName
             .toLowerCase()
             .includes(searchName.toLowerCase())
-            && (card.cardRare === rareFilter || rareFilter === ''))
+            && (card.cardRare === rareFilter || rareFilter === 'todas')
+            && ((trunfoFilter && card.cardTrunfo) || !trunfoFilter))
             .map((card) => (
               <div key={ card.cardName }>
                 <Card
