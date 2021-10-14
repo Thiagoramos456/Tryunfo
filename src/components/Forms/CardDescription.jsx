@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const CardDescription = ({ value, onInputChange }) => (
-  <label htmlFor="cardDescription">
+  <label className="form-control" htmlFor="cardDescription">
     Descrição
     <textarea
       id="cardDescription"

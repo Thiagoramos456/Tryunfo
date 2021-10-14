@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const CardName = ({ value, onInputChange }) => (
-  <label htmlFor="cardName">
+  <label className="form-control" htmlFor="cardName">
     Nome
     <input
       id="cardName"

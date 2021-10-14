@@ -10,13 +10,14 @@ class ImageInput extends React.Component {
   render() {
     const { value, onInputChange } = this.props;
     return (
-      <label htmlFor="cardImage">
+      <label className="form-control" htmlFor="cardImage">
         Imagem
         <input
           id="cardImage"
           name="cardImage"
           data-testid="image-input"
           value={ value }
+          placeholder="Link da imagem"
           onChange={ onInputChange }
           required
         />

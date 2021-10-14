@@ -13,25 +13,48 @@ function Card(props) {
     cardTrunfo,
   } = props;
   return (
-    <div>
-      <h2 data-testid="name-card">{ cardName }</h2>
-      <img data-testid="image-card" src={ cardImage } alt={ cardName } />
-      <p data-testid="description-card">{ cardDescription }</p>
-      <p data-testid="attr1-card">
-        Attr01...
-        {cardAttr1}
-      </p>
-      <p data-testid="attr2-card">
-        Attr02...
-        {cardAttr2}
-      </p>
-      <p data-testid="attr3-card">
-        Attr03...
-        {cardAttr3}
-      </p>
-      <span data-testid="rare-card">{cardRare}</span>
-      {cardTrunfo
-        && <span data-testid="trunfo-card">Super Trunfo</span>}
+    <div className="trunfo-card">
+      <div className="card-body">
+        <div className="title-area">
+          <h2 className="title-card" data-testid="name-card">{ cardName }</h2>
+        </div>
+        <img
+          className="card-image"
+          data-testid="image-card"
+          src={ cardImage }
+          alt={ cardName }
+        />
+        <div className="description-area">
+          <p
+            className="description-card"
+            data-testid="description-card"
+          >
+            { cardDescription }
+          </p>
+        </div>
+        <p className="attr-card" data-testid="attr1-card">
+          Attr01 .....................
+          {cardAttr1}
+        </p>
+        <p className="attr-card" data-testid="attr2-card">
+          Attr02 .....................
+          {cardAttr2}
+        </p>
+        <p className="attr-card" data-testid="attr3-card">
+          Attr03 .....................
+          {cardAttr3}
+        </p>
+        <div className="rare-area">
+          <span className="rare-card" data-testid="rare-card">{cardRare}</span>
+          {cardTrunfo
+            && <span
+              className="super-trunfo-card"
+              data-testid="trunfo-card"
+            >
+              Super Trunfo
+            </span>}
+        </div>
+      </div>
     </div>
   );
 }

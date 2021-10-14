@@ -8,7 +8,7 @@ import CardRarity from './Forms/CardRarity';
 import CardTrunfo from './Forms/CardTrunfo';
 import SubmitCard from './Forms/SubmitCard';
 
-class Form extends React.Component {
+class CardForm extends React.Component {
   render() {
     const {
       cardName,
@@ -25,7 +25,7 @@ class Form extends React.Component {
       hasTrunfo,
     } = this.props;
     return (
-      <form onSubmit={ onSaveButtonClick }>
+      <form className="form-group" onSubmit={ onSaveButtonClick }>
         <CardName value={ cardName } onInputChange={ onInputChange } />
         <CardDescription value={ cardDescription } onInputChange={ onInputChange } />
         <CardAttributes
@@ -51,7 +51,7 @@ class Form extends React.Component {
   }
 }
 
-Form.propTypes = {
+CardForm.propTypes = {
   cardName: PropTypes.string.isRequired,
   cardDescription: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
@@ -66,4 +66,4 @@ Form.propTypes = {
   hasTrunfo: PropTypes.bool.isRequired,
 };
 
-export default Form;
+export default CardForm;
