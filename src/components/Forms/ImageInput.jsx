@@ -19,7 +19,6 @@ class ImageInput extends React.Component {
           value={ value }
           placeholder="Link da imagem"
           onChange={ onInputChange }
-          required
         />
       </label>
 

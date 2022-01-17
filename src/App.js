@@ -87,26 +87,33 @@ class App extends React.Component {
     const attrMax = 90;
     const attrMin = 0;
     const attrSumMax = 210;
+
     const {
       cardName,
       cardDescription,
       cardAttr1,
       cardAttr2,
       cardAttr3,
-      cardImage,
     } = this.state;
+
     const fields = [cardName,
-      cardDescription,
-      cardImage];
+      cardDescription];
+
     const attrs = [cardAttr1,
       cardAttr2,
       cardAttr3];
+
     const attrSum = attrs.reduce((acc, num) => acc + num);
+
     const isFilled = fields.every((field) => field);
+
     const isAttrsWithinRange = attrs
       .every((attr) => attr <= attrMax && attr >= attrMin);
+
     const isAttrsSumValid = attrSum <= attrSumMax;
+
     const isFormValid = isFilled && isAttrsWithinRange && isAttrsSumValid;
+
     this.setState({
       isSaveButtonDisabled: !isFormValid,
     });
