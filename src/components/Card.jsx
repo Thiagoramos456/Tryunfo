@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const DEFAULT_CARD_IMG = 'https://www.ebrink.com.br/media/catalog/category/super-trunfo-logo.jpg';
+
 function Card(props) {
   const {
     cardName,
@@ -21,7 +23,7 @@ function Card(props) {
         <img
           className="card-image"
           data-testid="image-card"
-          src={ cardImage }
+          src={ cardImage || DEFAULT_CARD_IMG }
           alt={ cardName }
         />
         <div className="description-area">
@@ -47,12 +49,14 @@ function Card(props) {
         <div className="rare-area">
           <span className="rare-card" data-testid="rare-card">{cardRare}</span>
           {cardTrunfo
-            && <span
-              className="super-trunfo-card"
-              data-testid="trunfo-card"
-            >
-              Super Trunfo
-            </span>}
+            && (
+              <span
+                className="super-trunfo-card"
+                data-testid="trunfo-card"
+              >
+                Super Trunfo
+              </span>
+            )}
         </div>
       </div>
     </div>
