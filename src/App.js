@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+/* eslint-disable react/jsx-max-depth */
 import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
